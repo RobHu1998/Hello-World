@@ -1,0 +1,174 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Timers;
+namespace FantasyPledge
+{
+    public partial class FirstTime : Form
+    {
+        public FirstTime()
+        {
+            InitializeComponent();
+        }
+
+        internal int Step = 1;
+        internal bool CanProcceed;
+
+        DataLoader DataLoader = new DataLoader();
+        DataTable activeTable,groupTable,teamTable;
+        LoginSetup LoginSetup = new LoginSetup();     
+
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            if (Step == 1)
+            {
+                if (!String.IsNullOrEmpty(TeamNameTextBox.Text) && !String.IsNullOrWhiteSpace(TeamNameTextBox.Text) && TeamNameTextBox.Text.Count<char>() >= 4)
+                {
+                    teamTable = DataLoader.LoadDataTable("Team");
+                    activeTable = DataLoader.LoadDataTable("Active");
+                    teamTable.Rows.Add(-1, TeamNameTextBox.Text);
+                    CanProcceed = true;
+                }
+                else
+                {
+                    MessageBox.Show("Not enough characters, or Whitespaces were found. Please create a valid Teamname", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    CanProcceed = false;
+                }
+            }
+
+            if (Step == 2)
+            {
+                if (!String.IsNullOrEmpty(GroupRollTextBox.Text) && GroupComboBox.SelectedItem != null)
+                {
+                    activeTable = DataLoader.LoadDataTable("Active");
+                    groupTable = DataLoader.LoadDataTable("Group");
+                    activeTable.Rows[LoginSetup.ActiveId]["DiceRoll"] = GroupRollTextBox.Text;
+
+                    int groupId = 0;
+
+                    for (int i = 0; i < groupTable.Rows.Count; i++)
+                    {
+                        if (groupTable.Rows[i]["GroupName"] == GroupComboBox.SelectedItem)
+                        {
+                            groupId = Convert.ToInt16(groupTable.Rows[i]["GroupID"]);
+                        }
+                    }
+
+                    activeTable.Rows[LoginSetup.ActiveId]["GroupID"] = groupId;
+                    groupTable.Rows[groupId]["NumberOfActive"] = Convert.ToInt16(groupTable.Rows[groupId]["NumberOfActive"]) + 1;
+                    if (groupTable.Rows[groupId]["NumberOfActive"] == groupTable.Rows[groupId]["Max"])
+                    {
+                        groupTable.Rows[groupId]["IsFull"] = true;
+                    }
+                    CanProcceed = true;
+                   
+                }
+                else
+                {
+                    MessageBox.Show("Group not selected, or Dice Roll number was not created. Please join or a group or roll the dice", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    CanProcceed = false;
+                }
+            }
+            if (CanProcceed)
+            {
+                Step++;
+                FirstTimePanel.Refresh();
+            }
+        }
+
+        private void CountDown_Tick(object sender, EventArgs e)
+        {
+            CountDown.Enabled = false;
+            TeamPick teamPick = new TeamPick();
+            this.Hide();
+            teamPick.Closed += (s, args) => this.Close();
+            teamPick.Show();
+        }
+
+        private void FirstTimePanel_Paint(object sender, PaintEventArgs e)
+        {
+            if(Step == 1)
+            {
+                AllClearLabel.Hide();
+                GroupChoseLabel.Hide();
+                GroupComboBox.Hide();
+                GroupRollButton.Hide();
+                GroupRollLabel.Hide();
+                GroupRollTextBox.Hide();
+                Step1Label.ForeColor = System.Drawing.SystemColors.ControlText;
+                Step2Label.ForeColor = System.Drawing.SystemColors.GrayText;
+                FinalStepLabel.ForeColor = System.Drawing.SystemColors.GrayText;
+                TeamNameLabel.Show();
+                TeamNameHintLabel.Show();
+                TeamNameTextBox.Show();
+                
+            }
+
+            if (Step == 2)
+            {
+                AllClearLabel.Hide();
+                TeamNameLabel.Hide();
+                TeamNameHintLabel.Hide();
+                TeamNameTextBox.Hide();
+                Step1Label.ForeColor = System.Drawing.SystemColors.GrayText;
+                Step2Label.ForeColor = System.Drawing.SystemColors.ControlText;
+                FinalStepLabel.ForeColor = System.Drawing.SystemColors.GrayText;
+                GroupChoseLabel.Show();
+                GroupComboBox.Show();
+                GroupRollButton.Show();
+                GroupRollLabel.Show();
+                GroupRollTextBox.Show();
+                
+                groupTable = DataLoader.LoadDataTable("Group");
+                GroupComboBox.Items.Equals(groupTable.Rows.Count);
+
+                for (int i = 0; i < groupTable.Rows.Count; i++)
+                {
+                    if (!Convert.ToBoolean(groupTable.Rows[i]["IsFull"]))
+                    {
+                        GroupComboBox.Items.Add(Convert.ToString(groupTable.Rows[i]["GroupName"]));
+                    }
+                }
+                
+            }
+
+            if (Step == 3)
+            {
+                TeamNameLabel.Hide();
+                TeamNameHintLabel.Hide();
+                TeamNameTextBox.Hide();
+                GroupChoseLabel.Hide();
+                GroupComboBox.Hide();
+                GroupRollButton.Hide();
+                GroupRollLabel.Hide();
+                GroupRollTextBox.Hide();
+                Step1Label.ForeColor = System.Drawing.SystemColors.GrayText;
+                Step2Label.ForeColor = System.Drawing.SystemColors.GrayText;
+                FinalStepLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+                
+                //if (!AllClear)
+                //{
+                //    AllClearLabel.Show();
+                //}
+                //if (AllClear)
+                //{
+                CountDown.Enabled = true;
+                    CountDown.Start();
+                //}
+            }
+        }
+
+        private void GroupRollButton_Click(object sender, EventArgs e)
+        {
+            Random random = new Random(Seed:0);
+            GroupRollTextBox.Text = random.Next(1, 6).ToString();
+            GroupRollButton.Enabled = false;
+        }
+    }
+}
