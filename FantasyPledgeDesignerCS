@@ -1,0 +1,252 @@
+using System;
+using System.Windows.Forms;
+
+namespace FantasyPledge
+{
+    partial class FantasyPledge
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.UserStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.UserStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ControlPanel = new System.Windows.Forms.Panel();
+            this.SideBetButton = new System.Windows.Forms.Button();
+            this.AdminButton = new System.Windows.Forms.Button();
+            this.NewPickButton = new System.Windows.Forms.Button();
+            this.TradeButton = new System.Windows.Forms.Button();
+            this.GroupButton = new System.Windows.Forms.Button();
+            this.ReportButton = new System.Windows.Forms.Button();
+            this.WitnessButton = new System.Windows.Forms.Button();
+            this.PointAdderButton = new System.Windows.Forms.Button();
+            this.UserPanel = new System.Windows.Forms.Panel();
+            this.UserPanelHoriScroll = new System.Windows.Forms.HScrollBar();
+            this.UserPanelVertScroll = new System.Windows.Forms.VScrollBar();
+            this.TeamButton = new System.Windows.Forms.Button();
+            this.UsersPoints = new System.Windows.Forms.ToolStripStatusLabel();
+            this.UserWithMostPoints = new System.Windows.Forms.ToolStripStatusLabel();
+            this.UserStatusStrip.SuspendLayout();
+            this.ControlPanel.SuspendLayout();
+            this.UserPanel.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // UserStatusStrip
+            // 
+            this.UserStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UserStripStatusLabel,
+            this.UsersPoints,
+            this.UserWithMostPoints});
+            this.UserStatusStrip.Location = new System.Drawing.Point(0, 537);
+            this.UserStatusStrip.Name = "UserStatusStrip";
+            this.UserStatusStrip.Size = new System.Drawing.Size(1001, 22);
+            this.UserStatusStrip.TabIndex = 0;
+            this.UserStatusStrip.Text = "UserStatusStrip";
+            // 
+            // UserStripStatusLabel
+            // 
+            this.UserStripStatusLabel.Name = "UserStripStatusLabel";
+            this.UserStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // ControlPanel
+            // 
+            this.ControlPanel.Controls.Add(this.TeamButton);
+            this.ControlPanel.Controls.Add(this.SideBetButton);
+            this.ControlPanel.Controls.Add(this.AdminButton);
+            this.ControlPanel.Controls.Add(this.NewPickButton);
+            this.ControlPanel.Controls.Add(this.TradeButton);
+            this.ControlPanel.Controls.Add(this.GroupButton);
+            this.ControlPanel.Controls.Add(this.ReportButton);
+            this.ControlPanel.Controls.Add(this.WitnessButton);
+            this.ControlPanel.Controls.Add(this.PointAdderButton);
+            this.ControlPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ControlPanel.Location = new System.Drawing.Point(0, 0);
+            this.ControlPanel.Name = "ControlPanel";
+            this.ControlPanel.Size = new System.Drawing.Size(105, 537);
+            this.ControlPanel.TabIndex = 1;
+            this.ControlPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ControlPanel_Paint);
+            // 
+            // SideBetButton
+            // 
+            this.SideBetButton.Location = new System.Drawing.Point(12, 157);
+            this.SideBetButton.Name = "SideBetButton";
+            this.SideBetButton.Size = new System.Drawing.Size(75, 23);
+            this.SideBetButton.TabIndex = 8;
+            this.SideBetButton.Text = "Side Bet";
+            this.SideBetButton.UseVisualStyleBackColor = true;
+            // 
+            // AdminButton
+            // 
+            this.AdminButton.Location = new System.Drawing.Point(12, 511);
+            this.AdminButton.Name = "AdminButton";
+            this.AdminButton.Size = new System.Drawing.Size(75, 23);
+            this.AdminButton.TabIndex = 7;
+            this.AdminButton.Text = "Admin";
+            this.AdminButton.UseVisualStyleBackColor = true;
+            // 
+            // NewPickButton
+            // 
+            this.NewPickButton.Location = new System.Drawing.Point(12, 215);
+            this.NewPickButton.Name = "NewPickButton";
+            this.NewPickButton.Size = new System.Drawing.Size(75, 23);
+            this.NewPickButton.TabIndex = 6;
+            this.NewPickButton.Text = "New Pick";
+            this.NewPickButton.UseVisualStyleBackColor = true;
+            // 
+            // TradeButton
+            // 
+            this.TradeButton.Location = new System.Drawing.Point(12, 186);
+            this.TradeButton.Name = "TradeButton";
+            this.TradeButton.Size = new System.Drawing.Size(75, 23);
+            this.TradeButton.TabIndex = 5;
+            this.TradeButton.Text = "Trade";
+            this.TradeButton.UseVisualStyleBackColor = true;
+            // 
+            // GroupButton
+            // 
+            this.GroupButton.Location = new System.Drawing.Point(12, 128);
+            this.GroupButton.Name = "GroupButton";
+            this.GroupButton.Size = new System.Drawing.Size(75, 23);
+            this.GroupButton.TabIndex = 4;
+            this.GroupButton.Text = "Group";
+            this.GroupButton.UseVisualStyleBackColor = true;
+            // 
+            // ReportButton
+            // 
+            this.ReportButton.Location = new System.Drawing.Point(12, 99);
+            this.ReportButton.Name = "ReportButton";
+            this.ReportButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ReportButton.Size = new System.Drawing.Size(75, 23);
+            this.ReportButton.TabIndex = 3;
+            this.ReportButton.Text = "Report";
+            this.ReportButton.UseVisualStyleBackColor = true;
+            // 
+            // WitnessButton
+            // 
+            this.WitnessButton.Location = new System.Drawing.Point(12, 70);
+            this.WitnessButton.Name = "WitnessButton";
+            this.WitnessButton.Size = new System.Drawing.Size(75, 23);
+            this.WitnessButton.TabIndex = 2;
+            this.WitnessButton.Text = "Witness";
+            this.WitnessButton.UseVisualStyleBackColor = true;
+            // 
+            // PointAdderButton
+            // 
+            this.PointAdderButton.Location = new System.Drawing.Point(12, 41);
+            this.PointAdderButton.Name = "PointAdderButton";
+            this.PointAdderButton.Size = new System.Drawing.Size(75, 23);
+            this.PointAdderButton.TabIndex = 1;
+            this.PointAdderButton.Text = "Add Points";
+            this.PointAdderButton.UseVisualStyleBackColor = true;
+            // 
+            // UserPanel
+            // 
+            this.UserPanel.Controls.Add(this.UserPanelHoriScroll);
+            this.UserPanel.Controls.Add(this.UserPanelVertScroll);
+            this.UserPanel.Location = new System.Drawing.Point(104, 0);
+            this.UserPanel.Name = "UserPanel";
+            this.UserPanel.Size = new System.Drawing.Size(897, 537);
+            this.UserPanel.TabIndex = 2;
+            this.UserPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.UserPanel_Paint);
+            // 
+            // UserPanelHoriScroll
+            // 
+            this.UserPanelHoriScroll.Location = new System.Drawing.Point(15, 520);
+            this.UserPanelHoriScroll.Name = "UserPanelHoriScroll";
+            this.UserPanelHoriScroll.Size = new System.Drawing.Size(882, 17);
+            this.UserPanelHoriScroll.TabIndex = 0;
+            this.UserPanelHoriScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.UserPanelHoriScroll_Scroll);
+            // 
+            // UserPanelVertScroll
+            // 
+            this.UserPanelVertScroll.Location = new System.Drawing.Point(0, 0);
+            this.UserPanelVertScroll.Name = "UserPanelVertScroll";
+            this.UserPanelVertScroll.Size = new System.Drawing.Size(17, 537);
+            this.UserPanelVertScroll.TabIndex = 1;
+            this.UserPanelVertScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.UserPanelVertScroll_Scroll);
+            // 
+            // TeamButton
+            // 
+            this.TeamButton.Location = new System.Drawing.Point(12, 12);
+            this.TeamButton.Name = "TeamButton";
+            this.TeamButton.Size = new System.Drawing.Size(75, 23);
+            this.TeamButton.TabIndex = 9;
+            this.TeamButton.Text = "Team";
+            this.TeamButton.UseVisualStyleBackColor = true;
+            // 
+            // UsersPoints
+            // 
+            this.UsersPoints.Name = "UsersPoints";
+            this.UsersPoints.Size = new System.Drawing.Size(118, 17);
+            this.UsersPoints.Text = "toolStripStatusLabel1";
+            // 
+            // UserWithMostPoints
+            // 
+            this.UserWithMostPoints.Name = "UserWithMostPoints";
+            this.UserWithMostPoints.Size = new System.Drawing.Size(118, 17);
+            this.UserWithMostPoints.Text = "toolStripStatusLabel2";
+            // 
+            // FantasyPledge
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1001, 559);
+            this.Controls.Add(this.UserPanel);
+            this.Controls.Add(this.ControlPanel);
+            this.Controls.Add(this.UserStatusStrip);
+            this.Name = "FantasyPledge";
+            this.Text = "FantasyPledge";
+            this.Load += new System.EventHandler(this.FantasyPledge_Load);
+            this.UserStatusStrip.ResumeLayout(false);
+            this.UserStatusStrip.PerformLayout();
+            this.ControlPanel.ResumeLayout(false);
+            this.UserPanel.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+
+        #endregion
+
+        private System.Windows.Forms.StatusStrip UserStatusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel UserStripStatusLabel;
+        private System.Windows.Forms.Panel ControlPanel;
+        private System.Windows.Forms.Panel UserPanel;
+        private System.Windows.Forms.HScrollBar UserPanelHoriScroll;
+        private System.Windows.Forms.VScrollBar UserPanelVertScroll;
+        private Button TradeButton;
+        private Button GroupButton;
+        private Button ReportButton;
+        private Button WitnessButton;
+        private Button PointAdderButton;
+        private Button SideBetButton;
+        private Button AdminButton;
+        private Button NewPickButton;
+        private Button TeamButton;
+        private ToolStripStatusLabel UsersPoints;
+        private ToolStripStatusLabel UserWithMostPoints;
+    }
+}
