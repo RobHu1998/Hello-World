@@ -1,0 +1,104 @@
+namespace FantasyPledge
+{
+    partial class TeamPick
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.UserInTeamDisplay = new System.Windows.Forms.Panel();
+            this.UserInTeamVScroll = new System.Windows.Forms.VScrollBar();
+            this.TeamProggressBarTimer = new System.Windows.Forms.ProgressBar();
+            this.TeamPickDisplay = new System.Windows.Forms.Panel();
+            this.TeamPickVScroll = new System.Windows.Forms.VScrollBar();
+            this.UserInTeamDisplay.SuspendLayout();
+            this.TeamPickDisplay.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // UserInTeamDisplay
+            // 
+            this.UserInTeamDisplay.Controls.Add(this.UserInTeamVScroll);
+            this.UserInTeamDisplay.Controls.Add(this.TeamProggressBarTimer);
+            this.UserInTeamDisplay.Dock = System.Windows.Forms.DockStyle.Left;
+            this.UserInTeamDisplay.Location = new System.Drawing.Point(0, 0);
+            this.UserInTeamDisplay.Name = "UserInTeamDisplay";
+            this.UserInTeamDisplay.Size = new System.Drawing.Size(147, 450);
+            this.UserInTeamDisplay.TabIndex = 0;
+            this.UserInTeamDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.UserInTeamDisplay_Paint);
+            // 
+            // UserInTeamVScroll
+            // 
+            this.UserInTeamVScroll.Location = new System.Drawing.Point(130, 0);
+            this.UserInTeamVScroll.Name = "UserInTeamVScroll";
+            this.UserInTeamVScroll.Size = new System.Drawing.Size(17, 450);
+            this.UserInTeamVScroll.TabIndex = 0;
+            // 
+            // TeamProggressBarTimer
+            // 
+            this.TeamProggressBarTimer.Location = new System.Drawing.Point(0, 427);
+            this.TeamProggressBarTimer.Name = "TeamProggressBarTimer";
+            this.TeamProggressBarTimer.Size = new System.Drawing.Size(127, 23);
+            this.TeamProggressBarTimer.TabIndex = 0;
+            // 
+            // TeamPickDisplay
+            // 
+            this.TeamPickDisplay.Controls.Add(this.TeamPickVScroll);
+            this.TeamPickDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TeamPickDisplay.Location = new System.Drawing.Point(0, 0);
+            this.TeamPickDisplay.Name = "TeamPickDisplay";
+            this.TeamPickDisplay.Size = new System.Drawing.Size(800, 450);
+            this.TeamPickDisplay.TabIndex = 1;
+            // 
+            // TeamPickVScroll
+            // 
+            this.TeamPickVScroll.Location = new System.Drawing.Point(783, 0);
+            this.TeamPickVScroll.Name = "TeamPickVScroll";
+            this.TeamPickVScroll.Size = new System.Drawing.Size(17, 450);
+            this.TeamPickVScroll.TabIndex = 1;
+            // 
+            // TeamPick
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.UserInTeamDisplay);
+            this.Controls.Add(this.TeamPickDisplay);
+            this.Name = "TeamPick";
+            this.Text = "TeamPick";
+            this.UserInTeamDisplay.ResumeLayout(false);
+            this.TeamPickDisplay.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Panel UserInTeamDisplay;
+        private System.Windows.Forms.ProgressBar TeamProggressBarTimer;
+        private System.Windows.Forms.VScrollBar UserInTeamVScroll;
+        private System.Windows.Forms.Panel TeamPickDisplay;
+        private System.Windows.Forms.VScrollBar TeamPickVScroll;
+    }
+}
