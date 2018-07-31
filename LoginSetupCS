@@ -1,0 +1,69 @@
+using System;
+using System.Windows.Forms;
+using System.Data;
+using System.Linq;
+
+namespace FantasyPledge
+{
+    public class LoginSetup
+    {
+       
+        public int ActiveId { get; set; }
+        public bool IsUser (string Username, string Password, DataTable ActiveTable)
+        {
+            if (String.IsNullOrEmpty(Username) || String.IsNullOrWhiteSpace(Username))
+            {
+                MessageBox.Show("Enter a valid Username", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (String.IsNullOrEmpty(Password) || String.IsNullOrWhiteSpace(Password))
+            {
+                MessageBox.Show("Enter a valid Password", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            bool userIsValid = false;
+            bool passIsValid = false;
+            int userActiveId=1;
+            int passActiveId=0;
+
+            for (int i = 0; i < ActiveTable.Rows.Count; i++)
+            {
+                if (Username == Convert.ToString(ActiveTable.Rows[i]["UserName"]))
+                {
+                    userIsValid = true;
+                    userActiveId = Convert.ToInt16(ActiveTable.Rows[i]["ActiveID"]);
+                }
+
+                if (Password == Convert.ToString(ActiveTable.Rows[i]["Password"]))
+                {
+                    passIsValid = true;
+                    passActiveId = Convert.ToInt16(ActiveTable.Rows[i]["ActiveID"]);
+                }
+            }
+
+            if (passIsValid && userIsValid && userActiveId == passActiveId)
+            {
+                this.ActiveId = userActiveId;
+                return true;
+            }
+        
+            else return false;
+        }
+        public string Status (DataTable ActiveTable, DataTable GroupTable)
+        {
+            int GroupId = Convert.ToInt16(ActiveTable.Rows[ActiveId-1]["GroupID"]);
+            string status = Convert.ToString(ActiveTable.Rows[ActiveId-1]["FirstName"]) + " " + Convert.ToString(ActiveTable.Rows[ActiveId-1]["LastName"]) + " Group: " + Convert.ToString(GroupTable.Rows[GroupId-1]["GroupName"]);
+            return status;
+        }
+        public bool FirstTime(DataTable ActiveTable)
+        {
+            if (Convert.ToBoolean(ActiveTable.Rows[ActiveId - 1]["FirstLogin"]))
+            {
+                return true;
+            }
+            else return false;
+        }
+
+    }
+}
