@@ -1,0 +1,126 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FantasyPledge
+{
+    public partial class TeamPick : Form
+    {
+        public TeamPick()
+        {
+            InitializeComponent();
+        }
+        DataLoader DataLoader = new DataLoader();
+        LoginSetup LoginSetup = new LoginSetup();
+
+        private void UserInTeamDisplay_Paint(object sender, PaintEventArgs e)
+        {
+
+            
+            DataTable groupTable, activeTable;
+
+            groupTable = DataLoader.LoadDataTable("Group");
+            activeTable = DataLoader.LoadDataTable("Active");
+
+            int groupId = Convert.ToInt16(activeTable.Rows[LoginSetup.ActiveId]["GroupID"]);
+            int a = 1;
+            int numberOfActives = Convert.ToInt16(groupTable.Rows[groupId - 1]["NumberOfActive"]);
+
+            Label[] groupNameLabel = new Label[1];
+            Label[] nameLabel = new Label[activeTable.Rows.Count];
+
+            groupNameLabel[0] = new Label();
+            groupNameLabel[0].AutoSize = true;
+            groupNameLabel[0].Location = new System.Drawing.Point(a*12, 9);
+            groupNameLabel[0].Size = new System.Drawing.Size(72, 13);
+            groupNameLabel[0].TabIndex = a;
+            groupNameLabel[0].Text = Convert.ToString(groupTable.Rows[groupId-1]["GroupName"]);
+            UserInTeamDisplay.Controls.Add(groupNameLabel[0]);
+           
+            a++;
+           
+            
+            int [,] actives = new int[numberOfActives,6];
+
+            for (int i = 0; i < activeTable.Rows.Count; i++)
+            {
+                if (Convert.ToInt16(activeTable.Rows[i]["GroupID"]) == groupId)
+                {
+                    nameLabel[i] = new Label();
+                    nameLabel[i].AutoSize = true;
+                    nameLabel[i].Location = new System.Drawing.Point(12, 9*a+5);
+                    nameLabel[i].Size = new System.Drawing.Size(72, 13);
+                    nameLabel[i].TabIndex = a;
+                    nameLabel[i].Text = Convert.ToString(activeTable.Rows[i]["FirstName"]) + " " + Convert.ToString(activeTable.Rows[i]["LastName"]);
+                    UserInTeamDisplay.Controls.Add(nameLabel[i]);
+                    a++;
+                    int DiceRoll = Convert.ToInt16(activeTable.Rows[i]["DiceRoll"]);
+                    int First = 0, Second = 0, Third = 0, Fourth = 0, Fifth = 0, Sixth = 0;
+                    
+
+                    if (DiceRoll == 6)
+                    {
+                        actives[First,1] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        First++;
+                    }
+
+                    if (DiceRoll == 5)
+                    {
+                        actives[Second, 2] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        Second++;
+                    }
+
+                    if (DiceRoll == 4)
+                    {
+                        actives[Third, 3] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        Third++;
+                    }
+
+                    if (DiceRoll == 3)
+                    {
+                        actives[Fourth, 4] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        Fourth++;
+                    }
+
+                    if (DiceRoll == 2)
+                    {
+                        actives[Fifth, 5] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        Fifth++;
+                    }
+
+                    if (DiceRoll == 1)
+                    {
+                        actives[Sixth, 6] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        Sixth++;
+                    }
+                }
+            }
+            int pos = 1;
+            for (int k = 0; k < activeTable.Rows.Count; k++)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    for (int j = 0; j < numberOfActives; j++)
+                    {
+                        if (Convert.ToInt16(activeTable.Rows[k]["ActiveID"])==actives[j,i])
+                        {
+                            activeTable.Rows[k]["Position"] = pos;
+                            pos++;
+                        }
+                    }
+                }
+            }
+              
+      
+
+
+
+        }
+    }
+}
