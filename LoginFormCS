@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FantasyPledge
+{
+    public partial class LoginForm : Form
+    {
+        LoginSetup LoginSetup = new LoginSetup();
+        FantasyPledge FantasyPledge = new FantasyPledge();
+        FirstTime FirstTime = new FirstTime();
+        DataLoader DataLoader = new DataLoader();
+        
+        
+        public LoginForm()
+        {
+            InitializeComponent();
+        }
+
+        private void LoginButton_Click(object sender, EventArgs e)
+        {
+            string UserName = LoginUserNameTextbox.Text;
+            string Password = LoginPasswordTextbox.Text;
+
+            if (LoginSetup.IsUser(UserName, Password, DataLoader.LoadDataTable("Active")))
+            {
+                if (LoginSetup.FirstTime(DataLoader.LoadDataTable("Active")))
+                {
+                    this.Hide();
+                    FirstTime.Show();
+                }
+                else
+                {
+                    this.Hide();
+                    FantasyPledge.Status = LoginSetup.Status(DataLoader.LoadDataTable("Active"), DataLoader.LoadDataTable("Group"));
+                    FantasyPledge.Closed += (s, args) => this.Close();
+                    FantasyPledge.Show();
+                }
+            }
+
+            else
+            {
+                MessageBox.Show("Incorrect Username or Password please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+}
