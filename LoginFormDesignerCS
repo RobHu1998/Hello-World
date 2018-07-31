@@ -1,0 +1,121 @@
+namespace FantasyPledge
+{
+    partial class LoginForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.LoginButton = new System.Windows.Forms.Button();
+            this.LoginUserNameTextbox = new System.Windows.Forms.TextBox();
+            this.LoginPasswordTextbox = new System.Windows.Forms.MaskedTextBox();
+            this.UserNameLabel = new System.Windows.Forms.Label();
+            this.LoginPasswordLabel = new System.Windows.Forms.Label();
+            this.LoginPicture = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.LoginPicture)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // LoginButton
+            // 
+            this.LoginButton.Location = new System.Drawing.Point(67, 181);
+            this.LoginButton.Name = "LoginButton";
+            this.LoginButton.Size = new System.Drawing.Size(75, 23);
+            this.LoginButton.TabIndex = 0;
+            this.LoginButton.Text = "Login";
+            this.LoginButton.UseVisualStyleBackColor = true;
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
+            // 
+            // LoginUserNameTextbox
+            // 
+            this.LoginUserNameTextbox.Location = new System.Drawing.Point(12, 102);
+            this.LoginUserNameTextbox.Name = "LoginUserNameTextbox";
+            this.LoginUserNameTextbox.Size = new System.Drawing.Size(179, 20);
+            this.LoginUserNameTextbox.TabIndex = 1;
+            // 
+            // LoginPasswordTextbox
+            // 
+            this.LoginPasswordTextbox.Location = new System.Drawing.Point(12, 141);
+            this.LoginPasswordTextbox.Name = "LoginPasswordTextbox";
+            this.LoginPasswordTextbox.PasswordChar = '*';
+            this.LoginPasswordTextbox.Size = new System.Drawing.Size(179, 20);
+            this.LoginPasswordTextbox.TabIndex = 2;
+            // 
+            // UserNameLabel
+            // 
+            this.UserNameLabel.AutoSize = true;
+            this.UserNameLabel.Location = new System.Drawing.Point(12, 86);
+            this.UserNameLabel.Name = "UserNameLabel";
+            this.UserNameLabel.Size = new System.Drawing.Size(55, 13);
+            this.UserNameLabel.TabIndex = 3;
+            this.UserNameLabel.Text = "Username";
+            // 
+            // LoginPasswordLabel
+            // 
+            this.LoginPasswordLabel.AutoSize = true;
+            this.LoginPasswordLabel.Location = new System.Drawing.Point(12, 125);
+            this.LoginPasswordLabel.Name = "LoginPasswordLabel";
+            this.LoginPasswordLabel.Size = new System.Drawing.Size(53, 13);
+            this.LoginPasswordLabel.TabIndex = 4;
+            this.LoginPasswordLabel.Text = "Password";
+            // 
+            // LoginPicture
+            // 
+            this.LoginPicture.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LoginPicture.Location = new System.Drawing.Point(0, 0);
+            this.LoginPicture.Name = "LoginPicture";
+            this.LoginPicture.Size = new System.Drawing.Size(209, 83);
+            this.LoginPicture.TabIndex = 5;
+            this.LoginPicture.TabStop = false;
+            // 
+            // LoginForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(209, 216);
+            this.Controls.Add(this.LoginPicture);
+            this.Controls.Add(this.LoginPasswordLabel);
+            this.Controls.Add(this.UserNameLabel);
+            this.Controls.Add(this.LoginPasswordTextbox);
+            this.Controls.Add(this.LoginUserNameTextbox);
+            this.Controls.Add(this.LoginButton);
+            this.Name = "LoginForm";
+            this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.LoginPicture)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button LoginButton;
+        private System.Windows.Forms.TextBox LoginUserNameTextbox;
+        private System.Windows.Forms.MaskedTextBox LoginPasswordTextbox;
+        private System.Windows.Forms.Label UserNameLabel;
+        private System.Windows.Forms.Label LoginPasswordLabel;
+        private System.Windows.Forms.PictureBox LoginPicture;
+    }
+}
+
