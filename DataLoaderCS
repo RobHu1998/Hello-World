@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data;
+
+namespace FantasyPledge
+{
+    public class DataLoader
+    {
+        FantasyPledgeDataSet FantasyPledgeDataSet = new FantasyPledgeDataSet();
+
+        public DataTable LoadDataTable(string TableName)
+        {
+            if (TableName == "Active")
+            {
+                FantasyPledgeDataSetTableAdapters.ActiveTableAdapter activeTableAdapter = new FantasyPledgeDataSetTableAdapters.ActiveTableAdapter();
+                activeTableAdapter.Fill(FantasyPledgeDataSet.Active);
+                return FantasyPledgeDataSet.Active;
+            }
+
+            if (TableName == "Group")
+            {
+                FantasyPledgeDataSetTableAdapters.GroupTableAdapter groupTableAdapter = new FantasyPledgeDataSetTableAdapters.GroupTableAdapter();
+                groupTableAdapter.Fill(FantasyPledgeDataSet.Group);
+                return FantasyPledgeDataSet.Group;
+            }
+
+            if (TableName == "Team")
+            {
+                FantasyPledgeDataSetTableAdapters.TeamTableAdapter teamTableAdapter = new FantasyPledgeDataSetTableAdapters.TeamTableAdapter();
+                teamTableAdapter.Fill(FantasyPledgeDataSet.Team);
+                return FantasyPledgeDataSet.Team;
+            }
+
+            if (TableName == "Pledge")
+            {
+                FantasyPledgeDataSetTableAdapters.PledgeTableAdapter pledgeTableAdapter = new FantasyPledgeDataSetTableAdapters.PledgeTableAdapter();
+                pledgeTableAdapter.Fill(FantasyPledgeDataSet.Pledge);
+                return FantasyPledgeDataSet.Pledge;
+            }
+
+            else return null;
+
+        }
+    }
+}
