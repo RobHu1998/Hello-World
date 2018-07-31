@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FantasyPledge
+{
+    public partial class FantasyPledge : Form
+    {
+        public string Status { get; set; }
+
+        public FantasyPledge()
+        {
+            InitializeComponent();
+        }
+
+        private void FantasyPledge_Load(object sender, EventArgs e)
+        {
+            UserStripStatusLabel.Text = Status;
+        }
+
+        private void ControlPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void UserPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void UserPanelHoriScroll_Scroll(object sender, ScrollEventArgs e)
+        {
+
+        }
+
+        private void UserPanelVertScroll_Scroll(object sender, ScrollEventArgs e)
+        {
+
+        }
+    }
+}
