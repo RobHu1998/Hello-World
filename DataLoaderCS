@@ -10,39 +10,224 @@ namespace FantasyPledge
     public class DataLoader
     {
         FantasyPledgeDataSet FantasyPledgeDataSet = new FantasyPledgeDataSet();
+        FantasyPledgeDataSetTableAdapters.ActiveTableAdapter activeTableAdapter = new FantasyPledgeDataSetTableAdapters.ActiveTableAdapter();
+        FantasyPledgeDataSetTableAdapters.GroupTableAdapter groupTableAdapter = new FantasyPledgeDataSetTableAdapters.GroupTableAdapter();
+        FantasyPledgeDataSetTableAdapters.TeamTableAdapter teamTableAdapter = new FantasyPledgeDataSetTableAdapters.TeamTableAdapter();
+        FantasyPledgeDataSetTableAdapters.PledgeTableAdapter pledgeTableAdapter = new FantasyPledgeDataSetTableAdapters.PledgeTableAdapter();
+
 
         public DataTable LoadDataTable(string TableName)
         {
             if (TableName == "Active")
             {
-                FantasyPledgeDataSetTableAdapters.ActiveTableAdapter activeTableAdapter = new FantasyPledgeDataSetTableAdapters.ActiveTableAdapter();
                 activeTableAdapter.Fill(FantasyPledgeDataSet.Active);
                 return FantasyPledgeDataSet.Active;
             }
 
             if (TableName == "Group")
             {
-                FantasyPledgeDataSetTableAdapters.GroupTableAdapter groupTableAdapter = new FantasyPledgeDataSetTableAdapters.GroupTableAdapter();
                 groupTableAdapter.Fill(FantasyPledgeDataSet.Group);
                 return FantasyPledgeDataSet.Group;
             }
 
             if (TableName == "Team")
             {
-                FantasyPledgeDataSetTableAdapters.TeamTableAdapter teamTableAdapter = new FantasyPledgeDataSetTableAdapters.TeamTableAdapter();
                 teamTableAdapter.Fill(FantasyPledgeDataSet.Team);
                 return FantasyPledgeDataSet.Team;
             }
 
             if (TableName == "Pledge")
             {
-                FantasyPledgeDataSetTableAdapters.PledgeTableAdapter pledgeTableAdapter = new FantasyPledgeDataSetTableAdapters.PledgeTableAdapter();
                 pledgeTableAdapter.Fill(FantasyPledgeDataSet.Pledge);
                 return FantasyPledgeDataSet.Pledge;
             }
 
             else return null;
+        }
+        public void UpdateData(string TableName,string ColumnName,int RowNumber,int Value)
+        {
+            if (TableName == "Active")
+            {
+                if(ColumnName == "GroupID")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].GroupID = Value;
+                }
+                if (ColumnName == "TeamID")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].TeamID = Value;
+                }
+                if (ColumnName == "DontBe")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].DontBe = Value;
+                }
+                if (ColumnName == "Point")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].Point = Value;
+                }
+                if (ColumnName == "DiceRoll")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].DiceRoll = Value;
+                }
+                if (ColumnName == "Position")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].Position = Value;
+                }
+            }
+
+            if (TableName == "Group")
+            {
+                if (ColumnName == "NumberOfActive")
+                {
+                    FantasyPledgeDataSet.Group[RowNumber].NumberOfActive = Value;
+                }
+                if (ColumnName == "Max")
+                {
+                    FantasyPledgeDataSet.Group[RowNumber].Max = Value;
+                }
+            }
+
+            if (TableName == "Team")
+            {
+                if (ColumnName == "NumberOfPlayer")
+                {
+                    FantasyPledgeDataSet.Team[RowNumber].NumberOfPlayer = Value;
+                }
+                if (ColumnName == "PledgeID")
+                {
+                    FantasyPledgeDataSet.Team[RowNumber].PledgeID = Value;
+                }
+            }
+
+            if (TableName == "Pledge")
+            {
+                if (ColumnName == "Point")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].Point = Value;
+                }
+                if (ColumnName == "Age")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].Age = Value;
+                }
+                if (ColumnName == "TeamID")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].TeamID = Value;
+                }
+            }
+            activeTableAdapter.Update(FantasyPledgeDataSet);
+            groupTableAdapter.Update(FantasyPledgeDataSet);
+            teamTableAdapter.Update(FantasyPledgeDataSet);
+            pledgeTableAdapter.Update(FantasyPledgeDataSet);
+        }
+        public void UpdateData(string TableName, string ColumnName, int RowNumber,string ValueString)
+        {
+            if (TableName == "Active")
+            {
+                if (ColumnName == "FirstName")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].FirstName = ValueString;
+                }
+                if (ColumnName == "LastName")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].LastName = ValueString;
+                }
+                if (ColumnName == "UserName")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].UserName = ValueString;
+                }
+                if (ColumnName == "Password")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].Password = ValueString;
+                }
+            }
+            if (TableName == "Group")
+            {
+                if (ColumnName == "GroupName")
+                {
+                    FantasyPledgeDataSet.Group[RowNumber].GroupName = ValueString;
+                }
+               
+            }
+            if (TableName == "Team")
+            {
+                if (ColumnName == "TeamName")
+                {
+                    FantasyPledgeDataSet.Team[RowNumber].TeamName = ValueString;
+                }
+                if (ColumnName == "Leader")
+                {
+                    FantasyPledgeDataSet.Team[RowNumber].Leader = ValueString;
+                }
+            }
+            if (TableName == "Pledge")
+            {
+                if (ColumnName == "FirstName")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].FirstName = ValueString;
+                }
+                if (ColumnName == "LastName")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].LastName = ValueString;
+                }
+                if (ColumnName == "PhoneNumber")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].PhoneNumber = ValueString;
+                }
+                if (ColumnName == "WhereFrom")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].WhereFrom = ValueString;
+                }
+                if (ColumnName == "NickName")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].NickName = ValueString;
+                }
+                if (ColumnName == "Major")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].Major = ValueString;
+                }
+                if (ColumnName == "Description")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].Description = ValueString;
+                }
+            }
+            activeTableAdapter.Update(FantasyPledgeDataSet);
+            groupTableAdapter.Update(FantasyPledgeDataSet);
+            teamTableAdapter.Update(FantasyPledgeDataSet);
+            pledgeTableAdapter.Update(FantasyPledgeDataSet);
 
         }
+        public void UpdateData(string TableName, string ColumnName, int RowNumber, bool ValueBool)
+        {
+            if (TableName == "Active")
+            {
+                if (ColumnName == "Admin")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].Admin = ValueBool;
+                }
+                if (ColumnName == "FirstLogin")
+                {
+                    FantasyPledgeDataSet.Active[RowNumber].FirstLogin = ValueBool;
+                }
+            }
+            if (TableName == "Group")
+            {
+                if (ColumnName == "IsFull")
+                {
+                    FantasyPledgeDataSet.Group[RowNumber].IsFull = ValueBool;
+                }
+            }
+            if (TableName == "Pledge")
+            {
+                if (ColumnName == "Dropped")
+                {
+                    FantasyPledgeDataSet.Pledge[RowNumber].Dropped = ValueBool;
+                }
+            }
+            activeTableAdapter.Update(FantasyPledgeDataSet);
+            groupTableAdapter.Update(FantasyPledgeDataSet);
+            teamTableAdapter.Update(FantasyPledgeDataSet);
+            pledgeTableAdapter.Update(FantasyPledgeDataSet);
+        }
+
+
     }
 }
