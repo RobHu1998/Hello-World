@@ -16,13 +16,32 @@ namespace FantasyPledge
         {
             InitializeComponent();
         }
+
         DataLoader DataLoader = new DataLoader();
         LoginSetup LoginSetup = new LoginSetup();
 
+        private void CountDownTimer_Tick(object sender, EventArgs e)
+        {
+            if (TeamProggressBarTimer.Value != 300)
+            {
+                TeamProggressBarTimer.Value++;
+            }
+            else
+            {
+                CountDownTimer.Stop();
+            }
+        }
+
+        private void TeamPick_Load(object sender, EventArgs e)
+        {
+            CountDownTimer.Enabled = true;
+            CountDownTimer.Start();
+            CountDownTimer.Tick += new EventHandler(CountDownTimer_Tick);
+        }
         private void UserInTeamDisplay_Paint(object sender, PaintEventArgs e)
         {
-
             
+
             DataTable groupTable, activeTable;
 
             groupTable = DataLoader.LoadDataTable("Group");
@@ -30,7 +49,7 @@ namespace FantasyPledge
 
             int groupId = Convert.ToInt16(activeTable.Rows[LoginSetup.ActiveId]["GroupID"]);
             int a = 1;
-            int numberOfActives = Convert.ToInt16(groupTable.Rows[groupId - 1]["NumberOfActive"]);
+            int numberOfActives = Convert.ToInt16(groupTable.Rows[groupId]["NumberOfActive"]);
 
             Label[] groupNameLabel = new Label[1];
             Label[] nameLabel = new Label[activeTable.Rows.Count];
@@ -40,7 +59,7 @@ namespace FantasyPledge
             groupNameLabel[0].Location = new System.Drawing.Point(a*12, 9);
             groupNameLabel[0].Size = new System.Drawing.Size(72, 13);
             groupNameLabel[0].TabIndex = a;
-            groupNameLabel[0].Text = Convert.ToString(groupTable.Rows[groupId-1]["GroupName"]);
+            groupNameLabel[0].Text = Convert.ToString(groupTable.Rows[groupId]["GroupName"]);
             UserInTeamDisplay.Controls.Add(groupNameLabel[0]);
            
             a++;
@@ -117,10 +136,10 @@ namespace FantasyPledge
                 }
             }
               
-      
-
 
 
         }
+
+       
     }
 }
