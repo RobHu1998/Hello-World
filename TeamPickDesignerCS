@@ -28,11 +28,13 @@ namespace FantasyPledge
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.UserInTeamDisplay = new System.Windows.Forms.Panel();
             this.UserInTeamVScroll = new System.Windows.Forms.VScrollBar();
             this.TeamProggressBarTimer = new System.Windows.Forms.ProgressBar();
             this.TeamPickDisplay = new System.Windows.Forms.Panel();
             this.TeamPickVScroll = new System.Windows.Forms.VScrollBar();
+            this.CountDownTimer = new System.Windows.Forms.Timer(this.components);
             this.UserInTeamDisplay.SuspendLayout();
             this.TeamPickDisplay.SuspendLayout();
             this.SuspendLayout();
@@ -58,9 +60,13 @@ namespace FantasyPledge
             // TeamProggressBarTimer
             // 
             this.TeamProggressBarTimer.Location = new System.Drawing.Point(0, 427);
+            this.TeamProggressBarTimer.MarqueeAnimationSpeed = 10;
+            this.TeamProggressBarTimer.Maximum = 300;
             this.TeamProggressBarTimer.Name = "TeamProggressBarTimer";
-            this.TeamProggressBarTimer.Size = new System.Drawing.Size(127, 23);
+            this.TeamProggressBarTimer.Size = new System.Drawing.Size(130, 23);
+            this.TeamProggressBarTimer.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.TeamProggressBarTimer.TabIndex = 0;
+            this.TeamProggressBarTimer.Value = 0;
             // 
             // TeamPickDisplay
             // 
@@ -78,6 +84,11 @@ namespace FantasyPledge
             this.TeamPickVScroll.Size = new System.Drawing.Size(17, 450);
             this.TeamPickVScroll.TabIndex = 1;
             // 
+            // CountDownTimer
+            // 
+            this.CountDownTimer.Interval = 300000;
+            this.CountDownTimer.Tick += new System.EventHandler(this.CountDownTimer_Tick);
+            // 
             // TeamPick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -87,6 +98,7 @@ namespace FantasyPledge
             this.Controls.Add(this.TeamPickDisplay);
             this.Name = "TeamPick";
             this.Text = "TeamPick";
+            this.Load += new System.EventHandler(this.TeamPick_Load);
             this.UserInTeamDisplay.ResumeLayout(false);
             this.TeamPickDisplay.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -100,5 +112,6 @@ namespace FantasyPledge
         private System.Windows.Forms.VScrollBar UserInTeamVScroll;
         private System.Windows.Forms.Panel TeamPickDisplay;
         private System.Windows.Forms.VScrollBar TeamPickVScroll;
+        private System.Windows.Forms.Timer CountDownTimer;
     }
 }
