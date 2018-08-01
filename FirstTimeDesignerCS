@@ -1,6 +1,6 @@
 namespace FantasyPledge
 {
-    partial class FirstTime
+    partial class TeamPick
     {
         /// <summary>
         /// Required designer variable.
@@ -29,197 +29,89 @@ namespace FantasyPledge
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.NextButton = new System.Windows.Forms.Button();
-            this.Step2Label = new System.Windows.Forms.Label();
-            this.FinalStepLabel = new System.Windows.Forms.Label();
-            this.TeamNameTextBox = new System.Windows.Forms.TextBox();
-            this.TeamNameHintLabel = new System.Windows.Forms.Label();
-            this.TeamNameLabel = new System.Windows.Forms.Label();
-            this.Step1Label = new System.Windows.Forms.Label();
-            this.FirstTimePanel = new System.Windows.Forms.Panel();
-            this.AllClearLabel = new System.Windows.Forms.Label();
-            this.GroupRollTextBox = new System.Windows.Forms.TextBox();
-            this.GroupRollButton = new System.Windows.Forms.Button();
-            this.GroupRollLabel = new System.Windows.Forms.Label();
-            this.GroupChoseLabel = new System.Windows.Forms.Label();
-            this.GroupComboBox = new System.Windows.Forms.ComboBox();
-            this.CountDown = new System.Windows.Forms.Timer(this.components);
-            this.FirstTimePanel.SuspendLayout();
+            this.UserInTeamDisplay = new System.Windows.Forms.Panel();
+            this.UserInTeamVScroll = new System.Windows.Forms.VScrollBar();
+            this.TeamProggressBarTimer = new System.Windows.Forms.ProgressBar();
+            this.TeamPickDisplay = new System.Windows.Forms.Panel();
+            this.TeamPickVScroll = new System.Windows.Forms.VScrollBar();
+            this.CountDownTimer = new System.Windows.Forms.Timer(this.components);
+            this.UserInTeamDisplay.SuspendLayout();
+            this.TeamPickDisplay.SuspendLayout();
             this.SuspendLayout();
             // 
-            // NextButton
+            // UserInTeamDisplay
             // 
-            this.NextButton.Location = new System.Drawing.Point(207, 255);
-            this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(75, 23);
-            this.NextButton.TabIndex = 0;
-            this.NextButton.Text = "Next";
-            this.NextButton.UseVisualStyleBackColor = true;
-            this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
+            this.UserInTeamDisplay.Controls.Add(this.UserInTeamVScroll);
+            this.UserInTeamDisplay.Controls.Add(this.TeamProggressBarTimer);
+            this.UserInTeamDisplay.Dock = System.Windows.Forms.DockStyle.Left;
+            this.UserInTeamDisplay.Location = new System.Drawing.Point(0, 0);
+            this.UserInTeamDisplay.Name = "UserInTeamDisplay";
+            this.UserInTeamDisplay.Size = new System.Drawing.Size(147, 450);
+            this.UserInTeamDisplay.TabIndex = 0;
+            this.UserInTeamDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.UserInTeamDisplay_Paint);
             // 
-            // Step2Label
+            // UserInTeamVScroll
             // 
-            this.Step2Label.AutoSize = true;
-            this.Step2Label.Location = new System.Drawing.Point(189, 8);
-            this.Step2Label.Name = "Step2Label";
-            this.Step2Label.Size = new System.Drawing.Size(104, 13);
-            this.Step2Label.TabIndex = 4;
-            this.Step2Label.Text = "Step 2: Join a Group";
+            this.UserInTeamVScroll.Location = new System.Drawing.Point(130, 0);
+            this.UserInTeamVScroll.Name = "UserInTeamVScroll";
+            this.UserInTeamVScroll.Size = new System.Drawing.Size(17, 450);
+            this.UserInTeamVScroll.TabIndex = 0;
             // 
-            // FinalStepLabel
+            // TeamProggressBarTimer
             // 
-            this.FinalStepLabel.AutoSize = true;
-            this.FinalStepLabel.Location = new System.Drawing.Point(355, 8);
-            this.FinalStepLabel.Name = "FinalStepLabel";
-            this.FinalStepLabel.Size = new System.Drawing.Size(132, 13);
-            this.FinalStepLabel.TabIndex = 4;
-            this.FinalStepLabel.Text = "Last Step: Pick your Team";
+            this.TeamProggressBarTimer.Location = new System.Drawing.Point(0, 427);
+            this.TeamProggressBarTimer.MarqueeAnimationSpeed = 10;
+            this.TeamProggressBarTimer.Maximum = 300;
+            this.TeamProggressBarTimer.Name = "TeamProggressBarTimer";
+            this.TeamProggressBarTimer.Size = new System.Drawing.Size(130, 23);
+            this.TeamProggressBarTimer.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.TeamProggressBarTimer.TabIndex = 0;
+            this.TeamProggressBarTimer.Value = 0;
             // 
-            // TeamNameTextBox
+            // TeamPickDisplay
             // 
-            this.TeamNameTextBox.Location = new System.Drawing.Point(135, 107);
-            this.TeamNameTextBox.Name = "TeamNameTextBox";
-            this.TeamNameTextBox.Size = new System.Drawing.Size(197, 20);
-            this.TeamNameTextBox.TabIndex = 0;
+            this.TeamPickDisplay.Controls.Add(this.TeamPickVScroll);
+            this.TeamPickDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TeamPickDisplay.Location = new System.Drawing.Point(0, 0);
+            this.TeamPickDisplay.Name = "TeamPickDisplay";
+            this.TeamPickDisplay.Size = new System.Drawing.Size(800, 450);
+            this.TeamPickDisplay.TabIndex = 1;
             // 
-            // TeamNameHintLabel
+            // TeamPickVScroll
             // 
-            this.TeamNameHintLabel.AutoSize = true;
-            this.TeamNameHintLabel.Location = new System.Drawing.Point(132, 130);
-            this.TeamNameHintLabel.Name = "TeamNameHintLabel";
-            this.TeamNameHintLabel.Size = new System.Drawing.Size(120, 13);
-            this.TeamNameHintLabel.TabIndex = 4;
-            this.TeamNameHintLabel.Text = "minimum of 4 character*";
+            this.TeamPickVScroll.Location = new System.Drawing.Point(783, 0);
+            this.TeamPickVScroll.Name = "TeamPickVScroll";
+            this.TeamPickVScroll.Size = new System.Drawing.Size(17, 450);
+            this.TeamPickVScroll.TabIndex = 1;
             // 
-            // TeamNameLabel
+            // CountDownTimer
             // 
-            this.TeamNameLabel.AutoSize = true;
-            this.TeamNameLabel.Location = new System.Drawing.Point(189, 91);
-            this.TeamNameLabel.Name = "TeamNameLabel";
-            this.TeamNameLabel.Size = new System.Drawing.Size(93, 13);
-            this.TeamNameLabel.TabIndex = 5;
-            this.TeamNameLabel.Text = "Enter Team Name";
+            this.CountDownTimer.Interval = 300000;
+            this.CountDownTimer.Tick += new System.EventHandler(this.CountDownTimer_Tick);
             // 
-            // Step1Label
-            // 
-            this.Step1Label.AutoSize = true;
-            this.Step1Label.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Step1Label.Location = new System.Drawing.Point(9, 8);
-            this.Step1Label.Name = "Step1Label";
-            this.Step1Label.Size = new System.Drawing.Size(114, 13);
-            this.Step1Label.TabIndex = 3;
-            this.Step1Label.Text = "Step 1: Create a Team";
-            // 
-            // FirstTimePanel
-            // 
-            this.FirstTimePanel.Controls.Add(this.AllClearLabel);
-            this.FirstTimePanel.Controls.Add(this.GroupRollTextBox);
-            this.FirstTimePanel.Controls.Add(this.GroupRollButton);
-            this.FirstTimePanel.Controls.Add(this.GroupRollLabel);
-            this.FirstTimePanel.Controls.Add(this.GroupChoseLabel);
-            this.FirstTimePanel.Controls.Add(this.GroupComboBox);
-            this.FirstTimePanel.Controls.Add(this.Step1Label);
-            this.FirstTimePanel.Controls.Add(this.NextButton);
-            this.FirstTimePanel.Controls.Add(this.TeamNameLabel);
-            this.FirstTimePanel.Controls.Add(this.TeamNameHintLabel);
-            this.FirstTimePanel.Controls.Add(this.FinalStepLabel);
-            this.FirstTimePanel.Controls.Add(this.Step2Label);
-            this.FirstTimePanel.Controls.Add(this.TeamNameTextBox);
-            this.FirstTimePanel.Location = new System.Drawing.Point(0, 1);
-            this.FirstTimePanel.Name = "FirstTimePanel";
-            this.FirstTimePanel.Size = new System.Drawing.Size(498, 291);
-            this.FirstTimePanel.TabIndex = 2;
-            this.FirstTimePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.FirstTimePanel_Paint);
-            // 
-            // AllClearLabel
-            // 
-            this.AllClearLabel.AutoSize = true;
-            this.AllClearLabel.Location = new System.Drawing.Point(188, 110);
-            this.AllClearLabel.Name = "AllClearLabel";
-            this.AllClearLabel.Size = new System.Drawing.Size(108, 13);
-            this.AllClearLabel.TabIndex = 10;
-            this.AllClearLabel.Text = "Waiting for All Clear...";
-            // 
-            // GroupRollTextBox
-            // 
-            this.GroupRollTextBox.Enabled = false;
-            this.GroupRollTextBox.Location = new System.Drawing.Point(183, 119);
-            this.GroupRollTextBox.Name = "GroupRollTextBox";
-            this.GroupRollTextBox.ReadOnly = true;
-            this.GroupRollTextBox.Size = new System.Drawing.Size(121, 20);
-            this.GroupRollTextBox.TabIndex = 9;
-            // 
-            // GroupRollButton
-            // 
-            this.GroupRollButton.Location = new System.Drawing.Point(207, 142);
-            this.GroupRollButton.Name = "GroupRollButton";
-            this.GroupRollButton.Size = new System.Drawing.Size(75, 23);
-            this.GroupRollButton.TabIndex = 8;
-            this.GroupRollButton.Text = "Roll";
-            this.GroupRollButton.UseVisualStyleBackColor = true;
-            this.GroupRollButton.Click += new System.EventHandler(this.GroupRollButton_Click);
-            // 
-            // GroupRollLabel
-            // 
-            this.GroupRollLabel.AutoSize = true;
-            this.GroupRollLabel.Location = new System.Drawing.Point(180, 103);
-            this.GroupRollLabel.Name = "GroupRollLabel";
-            this.GroupRollLabel.Size = new System.Drawing.Size(72, 13);
-            this.GroupRollLabel.TabIndex = 7;
-            this.GroupRollLabel.Text = "Roll The Dice";
-            // 
-            // GroupChoseLabel
-            // 
-            this.GroupChoseLabel.AutoSize = true;
-            this.GroupChoseLabel.Location = new System.Drawing.Point(180, 63);
-            this.GroupChoseLabel.Name = "GroupChoseLabel";
-            this.GroupChoseLabel.Size = new System.Drawing.Size(88, 13);
-            this.GroupChoseLabel.TabIndex = 6;
-            this.GroupChoseLabel.Text = "Choose A Group:";
-            // 
-            // GroupComboBox
-            // 
-            this.GroupComboBox.FormattingEnabled = true;
-            this.GroupComboBox.Location = new System.Drawing.Point(183, 79);
-            this.GroupComboBox.Name = "GroupComboBox";
-            this.GroupComboBox.Size = new System.Drawing.Size(121, 21);
-            this.GroupComboBox.TabIndex = 3;
-            // 
-            // CountDown
-            // 
-            this.CountDown.Interval = 10000;
-            this.CountDown.Tick += new System.EventHandler(this.CountDown_Tick);
-            // 
-            // FirstTime
+            // TeamPick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 291);
-            this.Controls.Add(this.FirstTimePanel);
-            this.Name = "FirstTime";
-            this.Text = "FirstTime";
-            this.FirstTimePanel.ResumeLayout(false);
-            this.FirstTimePanel.PerformLayout();
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.UserInTeamDisplay);
+            this.Controls.Add(this.TeamPickDisplay);
+            this.Name = "TeamPick";
+            this.Text = "TeamPick";
+            this.Load += new System.EventHandler(this.TeamPick_Load);
+            this.UserInTeamDisplay.ResumeLayout(false);
+            this.TeamPickDisplay.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button NextButton;
-        private System.Windows.Forms.Label Step2Label;
-        private System.Windows.Forms.Label FinalStepLabel;
-        private System.Windows.Forms.TextBox TeamNameTextBox;
-        private System.Windows.Forms.Label TeamNameHintLabel;
-        private System.Windows.Forms.Label TeamNameLabel;
-        private System.Windows.Forms.Label Step1Label;
-        private System.Windows.Forms.Panel FirstTimePanel;
-        private System.Windows.Forms.TextBox GroupRollTextBox;
-        private System.Windows.Forms.Button GroupRollButton;
-        private System.Windows.Forms.Label GroupRollLabel;
-        private System.Windows.Forms.Label GroupChoseLabel;
-        private System.Windows.Forms.ComboBox GroupComboBox;
-        private System.Windows.Forms.Label AllClearLabel;
-        private System.Windows.Forms.Timer CountDown;
+        private System.Windows.Forms.Panel UserInTeamDisplay;
+        private System.Windows.Forms.ProgressBar TeamProggressBarTimer;
+        private System.Windows.Forms.VScrollBar UserInTeamVScroll;
+        private System.Windows.Forms.Panel TeamPickDisplay;
+        private System.Windows.Forms.VScrollBar TeamPickVScroll;
+        private System.Windows.Forms.Timer CountDownTimer;
     }
 }
