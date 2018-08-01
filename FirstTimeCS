@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Timers;
+using System.Data.SqlClient;
+using System.Security.Cryptography;
+
 namespace FantasyPledge
 {
     public partial class FirstTime : Form
@@ -21,8 +24,8 @@ namespace FantasyPledge
         internal bool CanProcceed;
 
         DataLoader DataLoader = new DataLoader();
-        DataTable activeTable,groupTable,teamTable;
-        LoginSetup LoginSetup = new LoginSetup();     
+        DataTable activeTable, groupTable, teamTable;
+        LoginSetup LoginSetup = new LoginSetup();
 
         private void NextButton_Click(object sender, EventArgs e)
         {
@@ -48,23 +51,23 @@ namespace FantasyPledge
                 {
                     activeTable = DataLoader.LoadDataTable("Active");
                     groupTable = DataLoader.LoadDataTable("Group");
-                    activeTable.Rows[LoginSetup.ActiveId]["DiceRoll"] = GroupRollTextBox.Text;
 
-                    int groupId = 0;
-
+                    int value = int.Parse(GroupRollTextBox.Text);
+                    DataLoader.UpdateData("Active","DiceRoll",LoginSetup.ActiveId,value);
+                    string selection = GroupComboBox.Text;
+                    int groupId=0;
                     for (int i = 0; i < groupTable.Rows.Count; i++)
                     {
-                        if (groupTable.Rows[i]["GroupName"] == GroupComboBox.SelectedItem)
+                        if (groupTable.Rows[i]["GroupName"].ToString() == selection)
                         {
-                            groupId = Convert.ToInt16(groupTable.Rows[i]["GroupID"]);
+                            groupId = Convert.ToInt16(groupTable.Rows[i]["GroupID"])-1;
                         }
                     }
-
-                    activeTable.Rows[LoginSetup.ActiveId]["GroupID"] = groupId;
-                    groupTable.Rows[groupId]["NumberOfActive"] = Convert.ToInt16(groupTable.Rows[groupId]["NumberOfActive"]) + 1;
+                    DataLoader.UpdateData("Active", "GroupID", LoginSetup.ActiveId, groupId);
+                    DataLoader.UpdateData("Group", "NumberOfActive", groupId, Convert.ToInt16(groupTable.Rows[groupId]["NumberOfActive"]) + 1);
                     if (groupTable.Rows[groupId]["NumberOfActive"] == groupTable.Rows[groupId]["Max"])
                     {
-                        groupTable.Rows[groupId]["IsFull"] = true;
+                        DataLoader.UpdateData("Group","IsFull",groupId,true);
                     }
                     CanProcceed = true;
                    
@@ -89,6 +92,13 @@ namespace FantasyPledge
             this.Hide();
             teamPick.Closed += (s, args) => this.Close();
             teamPick.Show();
+        }
+
+        private void FirstTime_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'fantasyPledgeDataSet.Group' table. You can move, or remove it, as needed.
+            this.groupTableAdapter.Fill(this.fantasyPledgeDataSet.Group);
+
         }
 
         private void FirstTimePanel_Paint(object sender, PaintEventArgs e)
@@ -124,17 +134,7 @@ namespace FantasyPledge
                 GroupRollButton.Show();
                 GroupRollLabel.Show();
                 GroupRollTextBox.Show();
-                
-                groupTable = DataLoader.LoadDataTable("Group");
-                GroupComboBox.Items.Equals(groupTable.Rows.Count);
 
-                for (int i = 0; i < groupTable.Rows.Count; i++)
-                {
-                    if (!Convert.ToBoolean(groupTable.Rows[i]["IsFull"]))
-                    {
-                        GroupComboBox.Items.Add(Convert.ToString(groupTable.Rows[i]["GroupName"]));
-                    }
-                }
                 
             }
 
@@ -166,9 +166,66 @@ namespace FantasyPledge
 
         private void GroupRollButton_Click(object sender, EventArgs e)
         {
-            Random random = new Random(Seed:0);
-            GroupRollTextBox.Text = random.Next(1, 6).ToString();
+            Random rnd = new Random();
+            int Num = 0;
+            int One = 0, Two = 0, Three = 0, Four = 0, Five = 0, Six = 0;
+            for (int i = 0; i < 300; ++i)
+            {
+                Num = rnd.Next(1, 7);
+                if (Num == 1)
+                {
+                    One++;
+                }
+                if (Num == 2)
+                {
+                    Two++;
+                }
+                if (Num == 3)
+                {
+                    Three++;
+                }
+                if (Num == 4)
+                {
+                    Four++;
+                }
+                if (Num == 5)
+                {
+                    Five++;
+                }
+                if (Num == 6)
+                {
+                    Six++;
+                }
+            }
+            if(One> Two && One > Three && One > Four && One > Five && One > Six)
+            {
+                Num = 1;
+            }
+            if (Two > One && Two > Three && Two > Four && Two > Five && Two > Six)
+            {
+                Num = 2;
+            }
+            if (Three > One && Three > Two && Three > Four && Three > Five && Three > Six)
+            {
+                Num = 3;
+            }
+            if (Four > One && Four > Three && Four > Two && Four > Five && Four > Six)
+            {
+                Num = 4;
+            }
+            if (Five > One && Five > Three && Five > Four && Five > Two && Five > Six)
+            {
+                Num = 5;
+            }
+            if (Six > One && Six > Three && Six > Four && Six > Five && Six > Two)
+            {
+                Num = 6;
+            }
+
+            GroupRollTextBox.Text = Num.ToString();
             GroupRollButton.Enabled = false;
+           
+
         }
     }
 }
