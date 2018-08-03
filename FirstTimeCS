@@ -21,7 +21,9 @@ namespace FantasyPledge
         }
 
         internal int Step = 1;
+        internal int GroupId { get; set; }
         internal bool CanProcceed;
+        public string TeamName { get; set; }
 
         DataLoader DataLoader = new DataLoader();
         DataTable activeTable, groupTable, teamTable;
@@ -35,8 +37,58 @@ namespace FantasyPledge
                 {
                     teamTable = DataLoader.LoadDataTable("Team");
                     activeTable = DataLoader.LoadDataTable("Active");
-                    teamTable.Rows.Add(-1, TeamNameTextBox.Text);
-                    CanProcceed = true;
+                    bool nextStep = false;
+                    if (teamTable.Rows.Count == 0)
+                    {
+                        nextStep = true;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < teamTable.Rows.Count; i++)
+                        {
+
+                            var teamName = teamTable.Rows[i]["TeamName"];
+                            if (teamName.ToString() == TeamNameTextBox.Text)
+                            {
+                                nextStep = false;
+                                break;
+                            }
+
+                            else nextStep = true;
+
+                        }
+                    }
+                    if (nextStep)
+                    {
+                        teamTable = DataLoader.LoadDataTable("Team");
+                        activeTable = DataLoader.LoadDataTable("Active");
+                        teamTable.Rows.Add(-1, TeamNameTextBox.Text);
+                        DataLoader.UpdateData(teamTable.DataSet as FantasyPledgeDataSet);
+                    
+                     
+                        for (int i = 0; i < teamTable.Rows.Count; i++)
+                        {
+                            var teamName = teamTable.Rows[i]["TeamName"];
+                            var activeRow = activeTable.Rows.Find(LoginSetup.ActiveId + 1);
+                            if (teamName.ToString() == TeamNameTextBox.Text)
+                            {
+                                activeRow["TeamID"] = i+1;
+                            }
+                        }
+                        DataLoader.UpdateData(activeTable.DataSet as FantasyPledgeDataSet);
+
+
+                        CanProcceed = true;
+
+                    }
+
+                    else
+                    {
+
+                        MessageBox.Show("Name already taken please enter a different name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        CanProcceed = false;
+
+                    }
                 }
                 else
                 {
@@ -53,24 +105,27 @@ namespace FantasyPledge
                     groupTable = DataLoader.LoadDataTable("Group");
 
                     int value = int.Parse(GroupRollTextBox.Text);
-                    DataLoader.UpdateData("Active","DiceRoll",LoginSetup.ActiveId,value);
-                    string selection = GroupComboBox.Text;
-                    int groupId=0;
+                    var activeRow = activeTable.Rows.Find(LoginSetup.ActiveId + 1);
+                    activeRow["DiceRoll"] = value;
+
                     for (int i = 0; i < groupTable.Rows.Count; i++)
                     {
-                        if (groupTable.Rows[i]["GroupName"].ToString() == selection)
+                        var groupName = groupTable.Rows[i]["GroupName"];
+                        var groupId = groupTable.Rows[i]["GroupID"];
+                        var groupNOA = groupTable.Rows[i]["NumberOfActive"];
+                        if (groupName.ToString() == Convert.ToString(GroupComboBox.Text))
                         {
-                            groupId = Convert.ToInt16(groupTable.Rows[i]["GroupID"])-1;
+                            var groupRows = groupTable.Rows.Find(Convert.ToInt16(groupId));
+                            activeRow["GroupID"] = Convert.ToInt16(groupRows["GroupID"]);
+                            groupNOA["NumberOfActive"] = Convert.ToInt16(groupRows["NumberOfActive"]) + 1;
                         }
                     }
-                    DataLoader.UpdateData("Active", "GroupID", LoginSetup.ActiveId, groupId);
-                    DataLoader.UpdateData("Group", "NumberOfActive", groupId, Convert.ToInt16(groupTable.Rows[groupId]["NumberOfActive"]) + 1);
-                    if (groupTable.Rows[groupId]["NumberOfActive"] == groupTable.Rows[groupId]["Max"])
-                    {
-                        DataLoader.UpdateData("Group","IsFull",groupId,true);
-                    }
+                    var group
+                    if ()
                     CanProcceed = true;
-                   
+
+                    DataLoader.UpdateData(groupTable.DataSet as FantasyPledgeDataSet);
+                    DataLoader.UpdateData(activeTable.DataSet as FantasyPledgeDataSet);
                 }
                 else
                 {
@@ -99,7 +154,10 @@ namespace FantasyPledge
             // TODO: This line of code loads data into the 'fantasyPledgeDataSet.Group' table. You can move, or remove it, as needed.
             this.groupTableAdapter.Fill(this.fantasyPledgeDataSet.Group);
 
+
         }
+
+ 
 
         private void FirstTimePanel_Paint(object sender, PaintEventArgs e)
         {
@@ -134,6 +192,8 @@ namespace FantasyPledge
                 GroupRollButton.Show();
                 GroupRollLabel.Show();
                 GroupRollTextBox.Show();
+
+
 
                 
             }
