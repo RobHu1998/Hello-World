@@ -14,7 +14,20 @@ namespace FantasyPledge
         FantasyPledgeDataSetTableAdapters.GroupTableAdapter groupTableAdapter = new FantasyPledgeDataSetTableAdapters.GroupTableAdapter();
         FantasyPledgeDataSetTableAdapters.TeamTableAdapter teamTableAdapter = new FantasyPledgeDataSetTableAdapters.TeamTableAdapter();
         FantasyPledgeDataSetTableAdapters.PledgeTableAdapter pledgeTableAdapter = new FantasyPledgeDataSetTableAdapters.PledgeTableAdapter();
+        FantasyPledgeDataSetTableAdapters.TableAdapterManager tam = new FantasyPledgeDataSetTableAdapters.TableAdapterManager();
 
+        public DataLoader()
+        {
+            tam.ActiveTableAdapter = activeTableAdapter;
+            tam.GroupTableAdapter = groupTableAdapter;
+            tam.TeamTableAdapter = teamTableAdapter;
+            tam.PledgeTableAdapter = pledgeTableAdapter;
+        }
+
+        public void UpdateData(FantasyPledgeDataSet fpds)
+        {
+            tam.UpdateAll(fpds);
+        }
 
         public DataTable LoadDataTable(string TableName)
         {
@@ -27,6 +40,7 @@ namespace FantasyPledge
             if (TableName == "Group")
             {
                 groupTableAdapter.Fill(FantasyPledgeDataSet.Group);
+                groupTableAdapter.FillByIsFull(FantasyPledgeDataSet.Group, false);
                 return FantasyPledgeDataSet.Group;
             }
 
@@ -189,10 +203,20 @@ namespace FantasyPledge
                     FantasyPledgeDataSet.Pledge[RowNumber].Description = ValueString;
                 }
             }
-            activeTableAdapter.Update(FantasyPledgeDataSet);
-            groupTableAdapter.Update(FantasyPledgeDataSet);
-            teamTableAdapter.Update(FantasyPledgeDataSet);
-            pledgeTableAdapter.Update(FantasyPledgeDataSet);
+            //activeTableAdapter.Update(FantasyPledgeDataSet);
+            //groupTableAdapter.Update(FantasyPledgeDataSet);
+            //teamTableAdapter.Update(FantasyPledgeDataSet);
+            //pledgeTableAdapter.Update(FantasyPledgeDataSet);
+
+            if (FantasyPledgeDataSet.HasChanges())
+            {
+                UpdateData(FantasyPledgeDataSet);
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("There are no changes to save.");
+            }
+
 
         }
         public void UpdateData(string TableName, string ColumnName, int RowNumber, bool ValueBool)
