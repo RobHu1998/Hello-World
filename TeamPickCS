@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,13 +15,17 @@ namespace FantasyPledge
 {
     public partial class TeamPick : Form
     {
+        FirstTime FirstTime = new FirstTime();
+        DataLoader DataLoader = new DataLoader();
+        LoginSetup LoginSetup = new LoginSetup();
+        DataTable pledgeTable, groupTable, activeTable, teamTable;
+
         public TeamPick()
         {
             InitializeComponent();
+            PaintPanels();
         }
 
-        DataLoader DataLoader = new DataLoader();
-        LoginSetup LoginSetup = new LoginSetup();
 
         private void CountDownTimer_Tick(object sender, EventArgs e)
         {
@@ -38,108 +45,202 @@ namespace FantasyPledge
             CountDownTimer.Start();
             CountDownTimer.Tick += new EventHandler(CountDownTimer_Tick);
         }
+
+
+
         private void UserInTeamDisplay_Paint(object sender, PaintEventArgs e)
         {
-            
-
-            DataTable groupTable, activeTable;
-
+            teamTable = DataLoader.LoadDataTable("Team");
             groupTable = DataLoader.LoadDataTable("Group");
             activeTable = DataLoader.LoadDataTable("Active");
 
-            int groupId = Convert.ToInt16(activeTable.Rows[LoginSetup.ActiveId]["GroupID"]);
+            var activeRows = activeTable.Rows.Find(LoginSetup.ActiveId+1);
+            var groupRows = groupTable.Rows.Find(Convert.ToInt16(activeRows["GroupID"]));
+            int numberOfActives = Convert.ToInt16(groupRows["NumberOfActive"]);
+            int groupId = Convert.ToInt16(groupRows["GroupID"]);
+            int[,] actives = new int[numberOfActives, 6];
+         
             int a = 1;
-            int numberOfActives = Convert.ToInt16(groupTable.Rows[groupId]["NumberOfActive"]);
-
-            Label[] groupNameLabel = new Label[1];
-            Label[] nameLabel = new Label[activeTable.Rows.Count];
-
-            groupNameLabel[0] = new Label();
-            groupNameLabel[0].AutoSize = true;
-            groupNameLabel[0].Location = new System.Drawing.Point(a*12, 9);
-            groupNameLabel[0].Size = new System.Drawing.Size(72, 13);
-            groupNameLabel[0].TabIndex = a;
-            groupNameLabel[0].Text = Convert.ToString(groupTable.Rows[groupId]["GroupName"]);
-            UserInTeamDisplay.Controls.Add(groupNameLabel[0]);
-           
+            Label groupNameLabel = new Label();
+            groupNameLabel.AutoSize = true;
+            groupNameLabel.Location = new System.Drawing.Point(12, UserInTeamDisplay.AutoScrollPosition.Y + 9 * a);
+            groupNameLabel.Size = new System.Drawing.Size(72, 13);
+            groupNameLabel.TabIndex = a;
+            groupNameLabel.Text = Convert.ToString(groupRows["GroupName"]);
+            UserInTeamDisplay.Controls.Add(groupNameLabel);
             a++;
-           
-            
-            int [,] actives = new int[numberOfActives,6];
 
             for (int i = 0; i < activeTable.Rows.Count; i++)
             {
-                if (Convert.ToInt16(activeTable.Rows[i]["GroupID"]) == groupId)
+                var activeGroupIDs = activeTable.Rows[i]["GroupID"];
+
+                if (Convert.ToInt16(activeGroupIDs) == groupId)
                 {
-                    nameLabel[i] = new Label();
-                    nameLabel[i].AutoSize = true;
-                    nameLabel[i].Location = new System.Drawing.Point(12, 9*a+5);
-                    nameLabel[i].Size = new System.Drawing.Size(72, 13);
-                    nameLabel[i].TabIndex = a;
-                    nameLabel[i].Text = Convert.ToString(activeTable.Rows[i]["FirstName"]) + " " + Convert.ToString(activeTable.Rows[i]["LastName"]);
-                    UserInTeamDisplay.Controls.Add(nameLabel[i]);
-                    a++;
                     int DiceRoll = Convert.ToInt16(activeTable.Rows[i]["DiceRoll"]);
                     int First = 0, Second = 0, Third = 0, Fourth = 0, Fifth = 0, Sixth = 0;
-                    
 
                     if (DiceRoll == 6)
                     {
-                        actives[First,1] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        actives[First, 0] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
                         First++;
+                        activeTable.Rows[i]["DiceRoll"] = 0;
+                        
                     }
 
                     if (DiceRoll == 5)
                     {
-                        actives[Second, 2] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        actives[Second, 1] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
                         Second++;
+                        activeTable.Rows[i]["DiceRoll"] = 0;
+                      
                     }
 
                     if (DiceRoll == 4)
                     {
-                        actives[Third, 3] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        actives[Third,2] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
                         Third++;
+                        activeTable.Rows[i]["DiceRoll"] = 0;
+                       
                     }
 
                     if (DiceRoll == 3)
                     {
-                        actives[Fourth, 4] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        actives[Fourth, 3] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
                         Fourth++;
+                        activeTable.Rows[i]["DiceRoll"] = 0;
+                        
                     }
 
                     if (DiceRoll == 2)
                     {
-                        actives[Fifth, 5] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        actives[Fifth, 4] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
                         Fifth++;
+                        activeTable.Rows[i]["DiceRoll"] = 0;
+                        
                     }
 
                     if (DiceRoll == 1)
                     {
-                        actives[Sixth, 6] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
+                        actives[Sixth, 5] = Convert.ToInt16(activeTable.Rows[i]["ActiveID"]);
                         Sixth++;
+                        activeTable.Rows[i]["DiceRoll"] = 0;
                     }
                 }
             }
-            int pos = 1;
-            for (int k = 0; k < activeTable.Rows.Count; k++)
+            int b = 1; 
+            for (int k = 0; k < 6; k++)
             {
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < numberOfActives; i++)
                 {
-                    for (int j = 0; j < numberOfActives; j++)
+                    for (int j = 0; j < activeTable.Rows.Count; j++)
                     {
-                        if (Convert.ToInt16(activeTable.Rows[k]["ActiveID"])==actives[j,i])
+                        if (Convert.ToInt16(activeTable.Rows[j]["ActiveID"]) == actives[i, k])
                         {
-                            activeTable.Rows[k]["Position"] = pos;
-                            pos++;
+                           
+                            Label name = new Label();
+                            name.AutoSize = true;
+                            name.Location = new System.Drawing.Point(12, UserInTeamDisplay.AutoScrollPosition.Y + (9 * a)+(13*b));
+                            name.Size = new System.Drawing.Size(72, 13);
+                            name.TabIndex = a;
+                            name.Text = Convert.ToString(activeTable.Rows[j]["FirstName"]) + " " + Convert.ToString(activeTable.Rows[j]["LastName"]);
+                            UserInTeamDisplay.Controls.Add(name);
+                            a++;
+                            b++;
                         }
                     }
                 }
             }
-              
+        }
+
+        private void TeamPickDisplay_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+        private void PaintPanels()
+        {
+
+            pledgeTable = DataLoader.LoadDataTable("Pledge");
+
+            PictureBox[] picture = new PictureBox[pledgeTable.Rows.Count];
+            Label[] infoLabel = new Label[pledgeTable.Rows.Count];
+            Label[] descLabel = new Label[pledgeTable.Rows.Count];
+            Button[] addButton = new Button[pledgeTable.Rows.Count];
+
+            for (int i = 0; i < pledgeTable.Rows.Count; i++)
+            {
+                {
+                    var chosen = pledgeTable.Rows[i]["Chosen"];
+                    var dropped = pledgeTable.Rows[i]["Dropped"];
+
+                    if (chosen == DBNull.Value || chosen == null || (chosen != DBNull.Value && chosen != null && !Convert.ToBoolean(pledgeTable.Rows[i]["Chosen"])))
+                    {
+                        if (dropped == DBNull.Value || dropped == null || (dropped != DBNull.Value && dropped != null && !Convert.ToBoolean(pledgeTable.Rows[i]["Dropped"])))
+                        {
+                            Panel pnl = new Panel();
+                            pnl.Dock = DockStyle.Top;
+                            pnl.AutoSize = true;
+
+                            picture[i] = new PictureBox();
+                            picture[i].Location = new System.Drawing.Point(16, 12);
+                            picture[i].Size = new System.Drawing.Size(100, 115);
+                            picture[i].ImageLocation = Convert.ToString(pledgeTable.Rows[i]["Picture"]);
+                            picture[i].SizeMode = PictureBoxSizeMode.Zoom;
+
+                            infoLabel[i] = new Label();
+                            infoLabel[i].AutoSize = true;
+                            infoLabel[i].Location = new System.Drawing.Point(122, 12);
+                            infoLabel[i].Size = new System.Drawing.Size(35, 13);
+                            infoLabel[i].Text = "Name: " + Convert.ToString(pledgeTable.Rows[i]["FirstName"]) + " " + Convert.ToString(pledgeTable.Rows[i]["LastName"]) + " Age: " + Convert.ToString(pledgeTable.Rows[i]["Age"]) + " CellPhone#: " + Convert.ToString(pledgeTable.Rows[i]["PhoneNumber"]) + " From: " + Convert.ToString(pledgeTable.Rows[i]["WhereFrom"]) + " Major: " + Convert.ToString(pledgeTable.Rows[i]["Major"]);
+
+                            descLabel[i] = new Label();
+                            descLabel[i].AutoSize = true;
+                            descLabel[i].Location = new System.Drawing.Point(122, 35);
+                            descLabel[i].Size = new System.Drawing.Size(35, 13);
+                            descLabel[i].Text = "Desc: " + Convert.ToString(pledgeTable.Rows[i]["Description"]);
+
+                            addButton[i] = new Button();
+                            addButton[i].Location = new Point(16, 133);
+                            addButton[i].Size = new System.Drawing.Size(75, 23);
+                            addButton[i].Text = "Add";
+                            addButton[i].Name = Convert.ToString(i);
+                            addButton[i].Tag = pledgeTable.Rows[i]["PledgeID"];
+                            addButton[i].Click += new System.EventHandler(addButton_Click);
+
+                            pnl.Controls.Add(picture[i]);
+                            pnl.Controls.Add(infoLabel[i]);
+                            pnl.Controls.Add(descLabel[i]);
+                            pnl.Controls.Add(addButton[i]);
+                            TeamPickDisplay.Controls.Add(pnl);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            MessageBox.Show(btn.Name + " Clicked");
+
+            btn.Parent.Hide();
+
+            var row = pledgeTable.Rows.Find(btn.Tag);
+            row["Chosen"] = true;
+            DataLoader.UpdateData(pledgeTable.DataSet as FantasyPledgeDataSet);
+
+
+            //if (row is FantasyPledgeDataSet.PledgeRow)
+            //{
+            //    FantasyPledgeDataSet.PledgeRow pRow = (FantasyPledgeDataSet.PledgeRow)row;
+            //    pRow.Chosen = true;
+            //    pRow.SetField("Chosen", true);
+
+            //    DataLoader.UpdateData(pledgeTable.DataSet as FantasyPledgeDataSet);
+            //}
 
 
         }
-
-       
     }
 }
+
+
