@@ -66,20 +66,21 @@ namespace FantasyPledge
             this.TeamProggressBarTimer.Size = new System.Drawing.Size(130, 23);
             this.TeamProggressBarTimer.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.TeamProggressBarTimer.TabIndex = 0;
-            this.TeamProggressBarTimer.Value = 0;
             // 
             // TeamPickDisplay
             // 
+            this.TeamPickDisplay.AutoScroll = true;
             this.TeamPickDisplay.Controls.Add(this.TeamPickVScroll);
             this.TeamPickDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TeamPickDisplay.Location = new System.Drawing.Point(0, 0);
+            this.TeamPickDisplay.Location = new System.Drawing.Point(147, 0);
             this.TeamPickDisplay.Name = "TeamPickDisplay";
-            this.TeamPickDisplay.Size = new System.Drawing.Size(800, 450);
+            this.TeamPickDisplay.Size = new System.Drawing.Size(653, 450);
             this.TeamPickDisplay.TabIndex = 1;
+            this.TeamPickDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.TeamPickDisplay_Paint);
             // 
             // TeamPickVScroll
             // 
-            this.TeamPickVScroll.Location = new System.Drawing.Point(783, 0);
+            this.TeamPickVScroll.Location = new System.Drawing.Point(636, 0);
             this.TeamPickVScroll.Name = "TeamPickVScroll";
             this.TeamPickVScroll.Size = new System.Drawing.Size(17, 450);
             this.TeamPickVScroll.TabIndex = 1;
@@ -94,8 +95,8 @@ namespace FantasyPledge
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.UserInTeamDisplay);
             this.Controls.Add(this.TeamPickDisplay);
+            this.Controls.Add(this.UserInTeamDisplay);
             this.Name = "TeamPick";
             this.Text = "TeamPick";
             this.Load += new System.EventHandler(this.TeamPick_Load);
